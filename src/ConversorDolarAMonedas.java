@@ -8,28 +8,11 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Scanner;
 
-public class Conversor {
-    double conversion_result;
-
-    //GETTERS Y SETTERS
-    public double getConversion_result() {
-        return conversion_result;
-    }
-
-    public void setConversion_result(double conversion_result) {
-        this.conversion_result = conversion_result;
-    }
-
-    //Constructor
-
-    public Conversor(double conversion_result) {
-        this.conversion_result = conversion_result;
-    }
-
-    static void convertirMoneda(String pais) {
+public class ConversorDolarAMonedas {
+    static void convertirDolar(String pais) {
         Scanner leer = new Scanner(System.in);
         double monto = leer.nextDouble();
-        String direccion = "https://v6.exchangerate-api.com/v6/c349e9cbba3abfeb882a724c/pair/" + pais + "/USD/" + monto;
+        String direccion = "https://v6.exchangerate-api.com/v6/c349e9cbba3abfeb882a724c/pair/USD/" + pais + "/" + monto;
         try {
             //HTTP
             HttpClient client = HttpClient.newHttpClient();
@@ -48,13 +31,11 @@ public class Conversor {
             ConversorDatos miConversor = gson.fromJson(json, ConversorDatos.class);
 
             System.out.println("------------------------------------");
-            System.out.println("|  Su valor $" + monto + " se convirtió a $" + miConversor.conversion_result() + " dolares  |");
+            System.out.println("|  Su valor en dólares $" + monto + " se convirtió a $" + miConversor.conversion_result() + "  |");
             System.out.println("------------------------------------");
 
         } catch (IOException | InterruptedException e) {
             System.out.println(e.getMessage());
         }
     }
-
-
 }
